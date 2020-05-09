@@ -98,5 +98,18 @@ The Neural Net is hence trained using the finest distribution of with [ `DataSet
 
 ![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevDataSet7DataCL7.png )
 
-From this it can be seen that, the RMSE of the closed-loop Neural Net remains of the same order-of-magnitude. However, a concerning pattern also emerges wherein the RMSE increases with increase in sampling time as follows:
-> - 
+From this it can be seen that, the RMSE of the closed-loop Neural Net remains of the same order-of-magnitude. However, a concerning pattern also emerges wherein the RMSE increases with increase in Total Time as follows:
+> - RMSE = 0.034076 @ Total Time = 250 seconds ( [ DataSet5 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
+> - RMSE = 0.045802 @ Total Time = 500 seconds ( [ DataSet6 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
+> - RMSE = 0.058563 @ Total Time = 1250 seconds ( [ DataSet7 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
+
+But if this is compared with [ DataSet8 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) and [ DataSet4 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) as follows,
+> - RMSE = 0.055203 @ Total Time = 2500 seconds ( Closed-loop testing data-set: [ DataSet8 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
+> - RMSE = 0.069337 @ Total Time = 7500 seconds ( Closed-loop trainind data-set: [ DataSet4 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
+ 
+ And also [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( See Figure below )
+ 
+ ![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevDataSet20DataCL20.png )
+ > - RMSE = 0.051395 @ Total Time = 10000 seconds ( Closed-loop trainind data-set: [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ),
+ 
+the pattern is broken.
