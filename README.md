@@ -107,9 +107,9 @@ But if this is compared with [ DataSet8 ]( https://github.com/JohnDoe2576/MagLev
 > - RMSE = 0.055203 @ Total Time = 2500 seconds ( Closed-loop testing data-set: [ DataSet8 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
 > - RMSE = 0.069337 @ Total Time = 7500 seconds ( Closed-loop trainind data-set: [ DataSet4 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) )
  
- And also [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( See Figure below )
+ and also [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( See Figure below )
  
  ![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevDataSet20DataCL20.png )
- > - RMSE = 0.051395 @ Total Time = 10000 seconds ( Closed-loop trainind data-set: [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ),
+ > - RMSE = 0.051395 @ Total Time = 10000 seconds ( [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ),
  
 the pattern is broken.
