@@ -40,6 +40,63 @@ Once the Neural Net is trained, its performance can be checked by
 > 2. Cross-correlation function, CCF of Input, U and Error, E
 > 3. Closed-loop performance of Trained Neural Net ( Quantitatively given by Root Mean Square Error, RMSE )
 
-If the **ACF of Error**, E is **not white noise**, OR the **CCF of input, U and Error, E** remains **outside the Confidence Intervals CI**, then it can be understood that further information can be extracted from the data. This is usually done by increasing the number of delayed inputs and outputs that are input ( supplied ) to the network.
+If the **ACF of Error**, E is **not white noise**, AND / OR the **CCF of input, U and Error, E** remains **outside the Confidence Intervals CI**, then it can be understood that further information can be extracted from the data. This is usually done by increasing the number of delayed inputs and outputs that are input ( supplied ) to the network.
 
 ## Results
+Two sets of data, one for training ( [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ) and one for testing ( [ `DataSet8` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ) is generated. These data-sets are generated with a time discretization, dt of 0.01 seconds and is designed to excite both transient and steady-state behaviour. The testing data-set has 2500 seconds of data and training data-set has thrice ( 7500 seconds ) the number of samples. The training data-set [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ), as mentioned previously, needs to be divided into three well-correlated parts for *Early Stopping* method.
+
+The Neural Net is trained with aforementioned parameters and is savec in [ `NetData4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Net ). Training data-set is then simulated using the train Neural Net in open-loop ( See Figure below ).
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevTrainDataOL4.png )
+
+The plot is shown for brevity. Furthermore, the **Root Mean Square Error, RMSE is 0.00035252**. It is seen that too much information makes the plot illegible and hence, a zoomed-in plot is shown below.
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevTrainDataOL4Zoom.png )
+
+It can be seen that the highest peaks near 1480 seconds to noisy patterns between 1650 and 1700 seconds are also well approximated by the network. However, the challenge for network is to accurately predict in closed-loop. But, before looking at the closed-loop data, let us look at the correlation plots obtained from the open-loop simulation with training data-set ( See Figures below ).
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLev_acf.png )
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLev_ccf.png )
+
+From above Figures, it can be seen that the ACF of Error is almost white and CCF between Input and Error remains well outside the bounds of Confidence Interval. This means that, more data can be extracted from the network, usually by increasing the number of delayed inputs and outputs. However, it has been observed ( results not included ) that further increase in number delayed inputs AND / OR number of neurons in hidden layer AND / OR fine-tuning of data does not improve the correlation. Also, closed-loop performance of the trained network is very much satisfactory. Considering these factors, the obtained Neural Net ( [ `NetData4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Net ) ) can be used for our purposes which is controller development. 
+
+The training data-set is now simulated with the trained Neural Net in closed-loop mode ( See Figures below ).
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevTrainDataCL4Zoom1.png )
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevTrainDataCL4Zoom2.png )
+
+It can be seen that the sharp peak close to 1480 seconds shows a small error in prediction compared to the open-loop simulation. Furthermore, the noise-like patterns between 1650 and 1700 seconds are also fairly closely predicted. The **Root Mean Square Error, RMSE is 0.069337** is a couple of orders-of-magnitude greater than the open-loop case. This is expected because, in the open-loop case, the actual system outputs are provided as inputs to network and in the closed-loop case, the network-predicted outputs are fedback as inputs to the network.
+
+The Figure below shows the closed-loop prediction of test data ( [ `DataSet8` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ) by the trained Neural Net ( [ `NetData4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Net ) ).
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevTestDataCL4Zoom1.png )
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevTestDataCL4Zoom2.png )
+
+Minor errors can be seen in the prediction of sharp peaks close to 1740 seconds and 1760 seconds. Furthermore, the errors are minor in case of the noise-like pattern between 1950 and 2000 seconds. Qualitatively, the errors seem to be comparable for closed-loop prediction of training data-set ( [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ) and testing data-set ( [ `DataSet8` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ), which had absolutely no role in the training phase. Quantitatively, the **Root Mean Squared Error, RMSE is 0.055203** which again, is comparable with the training data-set ( [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ).
+
+There are 8 [ `DataSets` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ). [ `DataSets` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) **5 - 8** are testing data-sets and [ `DataSets` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) **1 - 4** are training data-sets. Training data-sets have thrice the number of samples that the corresponding testing data-sets.
+> - [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Training ) and [ `DataSet8` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Testing ) are same properties ( Finest )
+> - [ `DataSet3` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Training ) and [ `DataSet7` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Testing ) are same properties
+> - [ `DataSet2` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Training ) and [ `DataSet6` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Testing ) are same properties
+> - [ `DataSet1` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Training ) and [ `DataSet5` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ( Testing ) are same properties ( Coarsest )
+
+In [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) and [ `DataSet8` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ), the amplitudes and frequencies to be excited are finely distributed and thereby have the largest number of samples. As the number decreases, the distribution of these properties become coarse.
+
+The Neural Net is hence trained using the finest distribution of with [ `DataSet4` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ). It hence should accurately predict data with coarser distribution of amplitudes and frequencies:
+> - [ `DataSet5` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) has a **RMSE = 0.034076** ( See Figure below )
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevDataSet5DataCL5.png )
+
+> - [ `DataSet6` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) has a **RMSE = 0.045802** ( See Figure below )
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevDataSet6DataCL6.png )
+
+> - [ `DataSet7` ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) has a **RMSE = 0.058563** ( See Figure below )
+
+![]( https://github.com/JohnDoe2576/MagLevNet/blob/master/DataStore/Fig/MagLevDataSet7DataCL7.png )
+
+From this it can be seen that, the RMSE of the closed-loop Neural Net remains of the same order-of-magnitude. However, a concerning pattern also emerges wherein the RMSE increases with increase in sampling time as follows:
+> - 
