@@ -86,6 +86,44 @@ function [ varargout ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber
                 
         end
         
+        if strcmpi( SimType, 'Generate Data only' )
+
+                % Generate testing data-set
+                [ DataSet ] = GenerateData( Fnc, Sys, Sim, Excite, 'Robust Training' );
+                disp( 'Generated testing data' );
+                
+                if DataSave == true
+                        SaveData( DataDir, DataSet, 'DataSet', CaseNumber( 1 ), DateExtension )
+                end
+                
+                % Plot testing data
+                PlotData( Fnc, DataSet, 'Testing', FigDir, FigName, CaseNumber( 1 ) );
+                
+                varargout{ 1 } = DataSet;
+
+        end
+        
+        if strcmpi( SimType, 'Load and plot pre-existing data' )
+
+                % Load Training Data-Set
+                [ TrainData ] = LoadData( DataDir, CaseNumber( 1 ) );
+                disp( 'Loaded training data' );
+                
+                % Plot Training Data
+                PlotData( Fnc, TrainData, 'Training', FigDir, FigName, CaseNumber( 1 ) );
+                
+                % Load Testing DataSet
+                [ TestData ] = LoadData( DataDir, CaseNumber( 2 ) );
+                disp( 'Loaded test data' );
+                
+                % Plot Training Data
+                PlotData( Fnc, TestData, 'Testing', FigDir, FigName, CaseNumber( 1 ) );
+                
+                varargout{ 1 } = TrainData;
+                varargout{ 2 } = TestData;
+
+        end
+        
         if strcmpi( SimType, 'Train using existing data-set' )
 
                 % Load Training Data-Set
@@ -98,6 +136,9 @@ function [ varargout ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber
                 % Load Testing DataSet
                 [ TestData ] = LoadData( DataDir, CaseNumber( 2 ) );
                 disp( 'Loaded test data' );
+                
+                % Plot Training Data
+                PlotData( Fnc, TestData, 'Testing', FigDir, FigName, CaseNumber( 1 ) );
                 
                 PlotAll( Fnc, MyNet, TrainData, TestData, FigDir, FigName, CaseNumber( 1 ) );
                 
@@ -132,13 +173,15 @@ function [ varargout ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber
                 
                 [ TestData ] = LoadData( DataDir, CaseNumber( 1 ) );
                 disp( [ 'Loaded data from ' DataDir 'DataSet' num2str( CaseNumber( 1 ) ) ] );
+                FileNam = [ 'DataSet' num2str( CaseNumber( 1 ) ) ];
 
                 [ MyNet ] = LoadNet( NetDir, CaseNumber( 3 ) );
                 disp( [ 'Loaded Neural Net from ' NetDir 'NetData' num2str( CaseNumber( 3 ) ) ] );
                 
                 [ DatNet ] = SimNet( MyNet.NetC, TestData );
+                disp( [ '       RMSE: ' num2str( DatNet.RMSE ) ] );
                 
-                PlotDataCL( Fnc, DatNet, 'Some', FigDir, FigName, CaseNumber( 1 ) );
+                PlotDataCL( Fnc, DatNet, FileNam, FigDir, FigName, CaseNumber( 1 ) );
                 
                 varargout{ 1 } = TestData;
                 varargout{ 2 } = MyNet;
@@ -286,6 +329,7 @@ function [ DatNet ] = SimNet( Net, Dat )
         
         E = DatNet.Y - DatNet.Ypred;
         DatNet.RMSE = rms( E );
+%         DatNet.RMSE = rms( E( 250:end ) );
 
 end
 

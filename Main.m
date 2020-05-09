@@ -1,17 +1,21 @@
 close all; clear all; clc;
 
 % SimType = 'Standard';
+% SimType = 'Generate Data only';
+% SimType = 'Load and plot pre-existing data';
 % SimType = 'Train using existing data-set';
-SimType = 'Use a pre-trained network';
-% SimType = 'Simulate using Trained Neural Net';
+% SimType = 'Use a pre-trained network';
+SimType = 'Simulate using Trained Neural Net';
 DataSave = false;
-FigSave = false;
+FigSave = true;
 FigName = 'MagLev';
 % CaseNumber = [ TrainData TestData NetData ];
-CaseNumber = [ 4 8 4 ];
+CaseNumber = [ 20 8 4 ];
 
-[ TrainData, TestData, NetData ] = NewRunNet( SimType, DataSave, FigSave, FigName, CaseNumber );
-% [ TestData, NetData ] = NewRunNet( SimType, DataSave, FigSave, FigName, CaseNumber );
+% [ TrainData, TestData, NetData ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber );
+[ TestData, NetData ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber );
+% [ TrainData, TestData ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber );
+% [ DataSet ] = RunNet( SimType, DataSave, FigSave, FigName, CaseNumber );
 
 clear SimType; clear DataSave; clear FigSave; clear FigName; clear CaseNumber;
 
