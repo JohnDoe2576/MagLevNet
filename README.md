@@ -9,8 +9,8 @@ References:
 
 [ **HaDeJe2002** ] Hagan, M. T., H. B. Demuth and O. D. Jesus ( 2002 ). An introduction to use of neural networks in control systems. International Journal of Robust and Nonlinear Control, 12( 11 ), 959-985.
 
-Code
-----
+Problem discretization
+----------------------
 The problem is discretized into three stages:
 > 1. Obtaining input-output data from the system
 > 2. Training a Neural Net ( Multi-Layer Perceptron ) using this data
@@ -113,3 +113,6 @@ But if this is compared with [ DataSet8 ]( https://github.com/JohnDoe2576/MagLev
  > - RMSE = 0.051395 @ Total Time = 10000 seconds ( [ DataSet20 ]( https://github.com/JohnDoe2576/MagLevNet/tree/master/DataStore/Dat ) ),
  
 the pattern is broken.
+
+Code
+----
